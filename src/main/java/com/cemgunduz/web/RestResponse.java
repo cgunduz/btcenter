@@ -1,6 +1,7 @@
 package com.cemgunduz.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +16,14 @@ public class RestResponse {
 	private String errorDescription;
 	private Map<String, String> data;
 	
+	private static Gson GSON;
+	
 	private final String KEY_SEPERATOR_PREFIX = "__-_";
 	
 	private RestResponse()
 	{
 		data = new HashMap<String, String>();
+		GSON = new Gson();
 	}
 
 	public boolean isSuccess() {
@@ -38,40 +42,50 @@ public class RestResponse {
 		this.errorDescription = errorDescription;
 	}
 
+	public String getData(String... nestedKeys)
+	{
+		List<String> nestedKeysAsList = Arrays.asList(nestedKeys);
+		return getData(null, nestedKeysAsList);
+	}
 	
 	// TODO : DOES NOT WORK FOR KEY SEPERATOR PREFIX WITH SAME NAME
-	public String getData(String... nestedKeys)
+	public String getData(List<String> nestedKeys)
 	{
 		return getData(null, nestedKeys);
 	}
 	
-	private String getData(List<String> keyChain, String... nestedKeys)
+	private String getData(List<String> keyChain, List<String> nestedKeys)
 	{		
-		if(nestedKeys == null || nestedKeys.length < 1)
+		if(nestedKeys == null || nestedKeys.size() < 1)
 			throw new UnsupportedOperationException("Nested Key length smaller than allowed");
 		
 		if(keyChain == null || keyChain.size() == 0)
 			keyChain = calculateKeyChain(nestedKeys);
 		
-		String lastKey = keyChain.get(nestedKeys.length-1);
+		String lastKey = keyChain.get(keyChain.size()-1);
 		if(!data.containsKey(lastKey))
 		{
-			String previousKeyAssociatedValue = getData((String[]) keyChain.subList(0, keyChain.size()-2).toArray());
-			data.put(lastKey, lastKeyAssociatedValue);
+			String previousKeyAssociatedValue = getData(keyChain.subList(0, keyChain.size()-2), 
+					nestedKeys.subList(0, nestedKeys.size()-1));
+			Map<String, String> jsonToDataMap = GSON.fromJson(previousKeyAssociatedValue, Map.class);
+			if(!jsonToDataMap.containsKey(nestedKeys.get(nestedKeys.size()-1)))
+				throw new UnsupportedOperationException("No such key is found.");
+			
+			data.put(lastKey, jsonToDataMap.get(nestedKeys.get(nestedKeys.size()-1)));
 		}
 		
 		return data.get(lastKey);
 	}
 	
-	private List<String> calculateKeyChain(String... nestedKeys)
+	private List<String> calculateKeyChain(List<String> nestedKeys)
 	{
 		List<String> keyChain = new ArrayList<String>();
-		keyChain.add(nestedKeys[0]);
+		keyChain.add(nestedKeys.get(0));
 		
 		int keyNumber = 1;
-		while(keyNumber < nestedKeys.length)
+		while(keyNumber < nestedKeys.size())
 		{
-			keyChain.add(keyChain.get(keyNumber-1) + KEY_SEPERATOR_PREFIX + nestedKeys[keyNumber]);
+			keyChain.add(keyChain.get(keyNumber-1) + KEY_SEPERATOR_PREFIX + nestedKeys.get(keyNumber));
 			keyNumber++;
 		}
 		
@@ -107,8 +121,7 @@ public class RestResponse {
 	
 	public static RestResponse createSuccessfulResponse(String jsonString)
 	{
-		Gson gson = new Gson();
-		Map<String, String> jsonToDataMap = gson.fromJson(jsonString, Map.class);
+		Map<String, String> jsonToDataMap = GSON.fromJson(jsonString, Map.class);
 		
 		return createSuccessfulResponseByMap(jsonToDataMap);
 	}
