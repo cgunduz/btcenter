@@ -1,29 +1,23 @@
 package com.cemgunduz.web;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.print.attribute.HashAttributeSet;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 
 public class RestResponse {
 
 	private boolean success;
 	private String errorDescription;
-	private Map<String, String> data;
-	
-	private static Gson GSON;
-	
-	private final String KEY_SEPERATOR_PREFIX = "__-_";
+	private Map<String, Object> data;
+
+	private static Gson GSON = new Gson();
 	
 	private RestResponse()
 	{
-		data = new HashMap<String, String>();
-		GSON = new Gson();
+		data = new HashMap<String, Object>();
 	}
 
 	public boolean isSuccess() {
@@ -45,63 +39,39 @@ public class RestResponse {
 	public String getData(String... nestedKeys)
 	{
 		List<String> nestedKeysAsList = Arrays.asList(nestedKeys);
-		return getData(null, nestedKeysAsList);
+		return getData(nestedKeysAsList);
 	}
-	
-	// TODO : DOES NOT WORK FOR KEY SEPERATOR PREFIX WITH SAME NAME
+
 	public String getData(List<String> nestedKeys)
 	{
-		return getData(null, nestedKeys);
+        String firstKey = nestedKeys.get(0);
+        if(!data.containsKey(firstKey))
+            throw new IllegalArgumentException("Key not found");
+
+        Object mapValue = data.get(firstKey);
+
+        if(mapValue instanceof String)
+            return (String)mapValue;
+
+        String finalKey = nestedKeys.get(nestedKeys.size()-1);
+        if(nestedKeys.size() > 2)
+        {
+            for(String nextKey : nestedKeys.subList(1,nestedKeys.size()-1))
+            {
+                Map<String,Object> tempMap = (Map)mapValue;
+                mapValue = tempMap.get(nextKey);
+            }
+        }
+
+        Map<String,Object> tempMap = (Map)mapValue;
+        return tempMap.get(finalKey).toString();
 	}
 	
-	private String getData(List<String> keyChain, List<String> nestedKeys)
-	{		
-		if(nestedKeys == null || nestedKeys.size() < 1)
-			throw new UnsupportedOperationException("Nested Key length smaller than allowed");
-		
-		if(keyChain == null || keyChain.size() == 0)
-			keyChain = calculateKeyChain(nestedKeys);
-		
-		String lastKey = keyChain.get(keyChain.size()-1);
-		if(!data.containsKey(lastKey))
-		{
-			String previousKeyAssociatedValue = getData(keyChain.subList(0, keyChain.size()-2), 
-					nestedKeys.subList(0, nestedKeys.size()-1));
-			Map<String, String> jsonToDataMap = GSON.fromJson(previousKeyAssociatedValue, Map.class);
-			if(!jsonToDataMap.containsKey(nestedKeys.get(nestedKeys.size()-1)))
-				throw new UnsupportedOperationException("No such key is found.");
-			
-			data.put(lastKey, jsonToDataMap.get(nestedKeys.get(nestedKeys.size()-1)));
-		}
-		
-		return data.get(lastKey);
-	}
-	
-	private List<String> calculateKeyChain(List<String> nestedKeys)
-	{
-		List<String> keyChain = new ArrayList<String>();
-		keyChain.add(nestedKeys.get(0));
-		
-		int keyNumber = 1;
-		while(keyNumber < nestedKeys.size())
-		{
-			keyChain.add(keyChain.get(keyNumber-1) + KEY_SEPERATOR_PREFIX + nestedKeys.get(keyNumber));
-			keyNumber++;
-		}
-		
-		return keyChain;
-	}
-	
-	private String getDataByKey(String key)
-	{
-		return data.get(key);
-	}
-	
-	private Map<String, String> getData() {
+	private Map<String, Object> getData() {
 		return data;
 	}
 	
-	private void setData(Map<String, String> map){
+	private void setData(Map<String, Object> map){
 		this.data = map;
 	}
 	
@@ -121,12 +91,11 @@ public class RestResponse {
 	
 	public static RestResponse createSuccessfulResponse(String jsonString)
 	{
-		Map<String, String> jsonToDataMap = GSON.fromJson(jsonString, Map.class);
-		
+        Map<String, Object> jsonToDataMap = GSON.fromJson(jsonString, Map.class);
 		return createSuccessfulResponseByMap(jsonToDataMap);
 	}
 	
-	private static RestResponse createSuccessfulResponseByMap(Map<String, String> jsonToDataMap)
+	private static RestResponse createSuccessfulResponseByMap(Map<String, Object> jsonToDataMap)
 	{
 		RestResponse res = new RestResponse();
 		res.setSuccess(true);

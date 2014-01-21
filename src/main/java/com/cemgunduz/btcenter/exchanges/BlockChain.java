@@ -13,19 +13,9 @@ import com.cemgunduz.web.WebUtils;
 
 public class BlockChain {
 	
-	public static void main(String[] args) {
-		
-		BlockChain bc = new BlockChain();
-		RestResponse response = bc.getBitstampBtcValueForCurrencies();
-		
-		System.out.println(response.getData("USD", "15m"));
-	}
-	
 	public RestResponse getBitstampBtcValueForCurrencies()
 	{
-		String apiUrl = BlockChainRestApi.GET_BITSTAMP_BITCOIN_VALUE.getUrl();
-		RestResponse response = WebUtils.getRestResponse(apiUrl);
-		
-		return response;
+		return WebUtils.getRestResponse(
+                BlockChainRestApi.GET_BITSTAMP_BITCOIN_VALUE.getUrl());
 	}
 }
