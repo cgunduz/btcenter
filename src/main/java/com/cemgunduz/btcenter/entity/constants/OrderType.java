@@ -5,7 +5,7 @@ package com.cemgunduz.btcenter.entity.constants;
  */
 public enum OrderType {
 
-    ASK("Asks"),BID("Bids");
+    ASK("asks"), BID("bids"), ALL("all");
 
     private String value;
 
