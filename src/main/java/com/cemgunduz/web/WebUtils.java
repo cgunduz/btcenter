@@ -33,9 +33,9 @@ public class WebUtils {
 	
 	public static RestResponse getRestResponse(String url)
 	{	
-		String jsonString = "";
+		String jsonString;
 		try
-		{	
+		{
 			Client client = Client.create();
 			
 			WebResource webResource = client.resource(url);
@@ -49,9 +49,6 @@ public class WebUtils {
 			}
 			 
 			jsonString = response.getEntity(String.class);
-			System.out.println(jsonString);
-			
-			
 		}
 		catch(Exception e)
 		{
@@ -60,6 +57,5 @@ public class WebUtils {
 		
 		return RestResponse.createSuccessfulResponse(jsonString);
 	}
- 
 }
 

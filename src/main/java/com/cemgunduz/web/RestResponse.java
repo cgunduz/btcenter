@@ -36,13 +36,13 @@ public class RestResponse {
 		this.errorDescription = errorDescription;
 	}
 
-	public String getData(String... nestedKeys)
+	public Object getData(String... nestedKeys)
 	{
 		List<String> nestedKeysAsList = Arrays.asList(nestedKeys);
 		return getData(nestedKeysAsList);
 	}
 
-	public String getData(List<String> nestedKeys)
+	public Object getData(List<String> nestedKeys)
 	{
         String firstKey = nestedKeys.get(0);
         if(!data.containsKey(firstKey))
@@ -50,8 +50,8 @@ public class RestResponse {
 
         Object mapValue = data.get(firstKey);
 
-        if(mapValue instanceof String)
-            return (String)mapValue;
+        if(!(mapValue instanceof Map))
+            return mapValue;
 
         String finalKey = nestedKeys.get(nestedKeys.size()-1);
         if(nestedKeys.size() > 2)
@@ -64,7 +64,7 @@ public class RestResponse {
         }
 
         Map<String,Object> tempMap = (Map)mapValue;
-        return tempMap.get(finalKey).toString();
+        return tempMap.get(finalKey);
 	}
 	
 	private Map<String, Object> getData() {

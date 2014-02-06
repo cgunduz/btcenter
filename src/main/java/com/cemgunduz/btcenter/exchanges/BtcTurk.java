@@ -8,11 +8,15 @@ public class BtcTurk {
 
     public RestResponse getTicker()
     {
-        return WebUtils.getRestResponse(BtcTurkRestApi.GET_TICKER.getUrl());
+        throw new UnsupportedOperationException("Not supported at the moment");
+        //return WebUtils.getRestResponse(BtcTurkRestApi.GET_TICKER.getUrl());
     }
 
     public RestResponse getOrderbook()
     {
-        return WebUtils.getRestResponse(BtcTurkRestApi.GET_ORDERBOOK.getUrl());
+        throw new UnsupportedOperationException("Not supported at the moment");
+        //return WebUtils.getRestResponse(BtcTurkRestApi.GET_ORDERBOOK.getUrl());
     }
+
+
 }
