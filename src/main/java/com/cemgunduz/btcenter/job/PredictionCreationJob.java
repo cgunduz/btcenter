@@ -3,7 +3,7 @@ package com.cemgunduz.btcenter.job;
 import com.cemgunduz.btcenter.entity.Order;
 import com.cemgunduz.btcenter.entity.constants.OrderType;
 import com.cemgunduz.btcenter.exchanges.BitStamp;
-import com.cemgunduz.web.RestResponse;
+import com.cemgunduz.utils.entity.RestResponse;
 import org.quartz.*;
 
 import java.util.ArrayList;

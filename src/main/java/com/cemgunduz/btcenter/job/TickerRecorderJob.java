@@ -1,7 +1,7 @@
 package com.cemgunduz.btcenter.job;
 
 import com.cemgunduz.btcenter.exchanges.BitStamp;
-import com.cemgunduz.web.RestResponse;
+import com.cemgunduz.utils.entity.RestResponse;
 import org.quartz.*;
 
 /**

@@ -2,6 +2,7 @@ package com.cemgunduz.utils.impl;
 
 import java.io.IOException;
 
+import com.cemgunduz.utils.WebUtils;
 import com.cemgunduz.utils.entity.RestResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,8 +13,9 @@ import com.sun.jersey.api.client.WebResource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WebUtilsImpl {
-	
+public class WebUtilsImpl implements WebUtils {
+
+    @Override
 	public Document getScrapableDocument(String url)
 	{
 		try {
@@ -26,7 +28,8 @@ public class WebUtilsImpl {
 
 		return null;
 	}
-	
+
+    @Override
 	public RestResponse getRestResponse(String url)
 	{	
 		String jsonString;

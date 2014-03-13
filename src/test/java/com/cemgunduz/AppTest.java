@@ -1,38 +1,57 @@
 package com.cemgunduz;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.cemgunduz.btcenter.dao.OrderRepository;
+import com.cemgunduz.btcenter.entity.Order;
+import com.cemgunduz.btcenter.entity.constants.OrderType;
+import com.cemgunduz.btcenter.services.OrderBookInspectorService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 /**
  * Unit test for simple App.
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring-config.xml" })
 public class AppTest 
-    extends TestCase
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+    @Autowired
+    OrderBookInspectorService orderBookInspectorService;
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+    @Autowired
+    @SuppressWarnings(value = "all")
+    OrderRepository orderRepository;
 
-    /**
-     * Rigourous Test :-)
-     */
+    @Autowired
+    MongoTemplate mongoTemplate;
+
+    @Test
     public void testApp()
     {
-        assertTrue( true );
+        orderBookInspectorService.getMinLowEstimation();
+        Order order1 = new Order(3.0,5.0, OrderType.ASK, 1234L);
+        Order order2 = new Order(2.0,5.5, OrderType.BID, 1234L);
+
+        order1.setId(1);
+        order2.setId(2);
+
+        mongoTemplate.dropCollection("Order");
+
+        orderRepository.save(order1);
+        orderRepository.save(order2);
+
+        System.out.println(order1.getId());
+        System.out.println(order2.getId());
+
+        List<Order> orderList = orderRepository.findAll();
+
+        for(Order o : orderList)
+            System.out.println(o.toString());
     }
 }

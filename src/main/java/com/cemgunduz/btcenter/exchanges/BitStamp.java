@@ -1,31 +1,38 @@
 package com.cemgunduz.btcenter.exchanges;
 
 import com.cemgunduz.btcenter.exchanges.constants.BitstampRestApi;
-import com.cemgunduz.web.RestResponse;
-import com.cemgunduz.web.WebUtils;
+import com.cemgunduz.utils.entity.RestResponse;
+import com.cemgunduz.utils.impl.WebUtilsImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by cgunduz on 1/29/14.
  */
+
+@Component
 public class BitStamp {
+
+    @Autowired
+    WebUtilsImpl webUtils;
 
     public RestResponse getTicker()
     {
-        return WebUtils.getRestResponse(BitstampRestApi.GET_TICKER.getUrl());
+        return webUtils.getRestResponse(BitstampRestApi.GET_TICKER.getUrl());
     }
 
     public RestResponse getOrderbook()
     {
-        return WebUtils.getRestResponse(BitstampRestApi.GET_ORDERBOOK.getUrl());
+        return webUtils.getRestResponse(BitstampRestApi.GET_ORDERBOOK.getUrl());
     }
 
     public RestResponse getTransactions()
     {
-        return WebUtils.getRestResponse(BitstampRestApi.GET_TRANSACTIONS.getUrl());
+        return webUtils.getRestResponse(BitstampRestApi.GET_TRANSACTIONS.getUrl());
     }
 
     public RestResponse getConversionRate()
     {
-        return WebUtils.getRestResponse(BitstampRestApi.GET_EUR_USD_CONVERSION_RATE.getUrl());
+        return webUtils.getRestResponse(BitstampRestApi.GET_EUR_USD_CONVERSION_RATE.getUrl());
     }
 }

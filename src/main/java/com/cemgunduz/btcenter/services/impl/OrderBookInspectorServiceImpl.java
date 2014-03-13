@@ -1,8 +1,12 @@
 package com.cemgunduz.btcenter.services.impl;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by cgunduz on 2/5/14.
  */
+
+@Service
 public class OrderBookInspectorServiceImpl extends AbstractOrderBookInspectorService {
 
     // TODO : NOT STARTED YET

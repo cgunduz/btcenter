@@ -4,7 +4,8 @@ import com.cemgunduz.btcenter.entity.Order;
 import com.cemgunduz.btcenter.entity.constants.OrderType;
 import com.cemgunduz.btcenter.exchanges.BitStamp;
 import com.cemgunduz.btcenter.services.OrderService;
-import com.cemgunduz.web.RestResponse;
+import com.cemgunduz.utils.entity.RestResponse;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 /**
  * Created by cgunduz on 2/6/14.
  */
+
+@Service
 public class OrderServiceImpl implements OrderService {
 
     @Override

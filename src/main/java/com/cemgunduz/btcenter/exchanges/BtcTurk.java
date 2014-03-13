@@ -1,9 +1,9 @@
 package com.cemgunduz.btcenter.exchanges;
 
-import com.cemgunduz.btcenter.exchanges.constants.BtcTurkRestApi;
-import com.cemgunduz.web.RestResponse;
-import com.cemgunduz.web.WebUtils;
+import com.cemgunduz.utils.entity.RestResponse;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BtcTurk {
 
     public RestResponse getTicker()

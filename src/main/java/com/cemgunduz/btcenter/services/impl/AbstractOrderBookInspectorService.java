@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Created by cgunduz on 2/5/14.
  */
+
 public abstract class AbstractOrderBookInspectorService implements OrderBookInspectorService {
 
     BitStamp bitStamp = new BitStamp();

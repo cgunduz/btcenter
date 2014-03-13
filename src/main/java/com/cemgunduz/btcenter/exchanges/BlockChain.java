@@ -1,21 +1,20 @@
 package com.cemgunduz.btcenter.exchanges;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import com.cemgunduz.btcenter.exchanges.constants.BlockChainRestApi;
-import com.cemgunduz.web.RestResponse;
-import com.cemgunduz.web.WebUtils;
+import com.cemgunduz.utils.entity.RestResponse;
+import com.cemgunduz.utils.impl.WebUtilsImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BlockChain {
-	
+
+    @Autowired
+    WebUtilsImpl webUtils;
+
 	public RestResponse getBitstampBtcValueForCurrencies()
 	{
-		return WebUtils.getRestResponse(
+		return webUtils.getRestResponse(
                 BlockChainRestApi.GET_BITSTAMP_BITCOIN_VALUE.getUrl());
 	}
 }
