@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by cgunduz on 2/5/14.
  */
-public interface OrderBookInspector {
+public interface OrderBookInspectorService {
 
     // Returns first wall
     double getFirstBuyWall();
@@ -29,8 +29,5 @@ public interface OrderBookInspector {
     // Predicts the panic level by Orderbook values
     PanicLevel detectSuddenBuyOrders();
     PanicLevel detectSuddenSellOrders();
-
-
-
 
 }

@@ -1,24 +1,20 @@
-package com.cemgunduz.web;
+package com.cemgunduz.utils.impl;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-
+import com.cemgunduz.utils.entity.RestResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import org.springframework.stereotype.Component;
 
-public class WebUtils {
+@Component
+public class WebUtilsImpl {
 	
-	public static Document getScrapableDocument(String url)
+	public Document getScrapableDocument(String url)
 	{
 		try {
 			Document doc = Jsoup.connect(url).get();
@@ -31,7 +27,7 @@ public class WebUtils {
 		return null;
 	}
 	
-	public static RestResponse getRestResponse(String url)
+	public RestResponse getRestResponse(String url)
 	{	
 		String jsonString;
 		try

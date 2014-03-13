@@ -1,11 +1,8 @@
-package com.cemgunduz.web;
+package com.cemgunduz.utils.entity;
 
 import java.util.*;
 
-import javax.print.attribute.HashAttributeSet;
-
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 
 public class RestResponse {
 
