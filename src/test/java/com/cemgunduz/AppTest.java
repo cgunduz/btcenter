@@ -1,6 +1,8 @@
 package com.cemgunduz;
 
 import com.cemgunduz.btcenter.dao.OrderRepository;
+import com.cemgunduz.btcenter.dao.SequenceRepository;
+import com.cemgunduz.btcenter.dao.constants.Sequence;
 import com.cemgunduz.btcenter.entity.Order;
 import com.cemgunduz.btcenter.entity.constants.OrderType;
 import com.cemgunduz.btcenter.services.OrderBookInspectorService;
@@ -31,6 +33,9 @@ public class AppTest
     @Autowired
     MongoTemplate mongoTemplate;
 
+    @Autowired
+    private SequenceRepository sequenceRepository;
+
     @Test
     public void testApp()
     {
@@ -38,8 +43,8 @@ public class AppTest
         Order order1 = new Order(3.0,5.0, OrderType.ASK, 1234L);
         Order order2 = new Order(2.0,5.5, OrderType.BID, 1234L);
 
-        order1.setId(1);
-        order2.setId(2);
+        order1.setId(sequenceRepository.nextSequence(Sequence.ORDER));
+        order2.setId(sequenceRepository.nextSequence(Sequence.ORDER));
 
         mongoTemplate.dropCollection("Order");
 
@@ -53,5 +58,7 @@ public class AppTest
 
         for(Order o : orderList)
             System.out.println(o.toString());
+
+
     }
 }

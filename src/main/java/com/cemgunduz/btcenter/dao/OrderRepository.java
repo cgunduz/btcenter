@@ -13,4 +13,5 @@ import java.util.List;
 public interface OrderRepository extends MongoRepository<Order,Integer>{
 
     public List<Order> findByOrderType(String orderType);
+    public List<Order> findByValue(Double value);
 }
