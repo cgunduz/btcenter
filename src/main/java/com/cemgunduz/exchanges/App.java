@@ -1,4 +1,4 @@
-package com.cemgunduz.btcenter.exchanges;
+package com.cemgunduz.exchanges;
 
 import com.cemgunduz.btcenter.job.PredictionCreationJob;
 import com.cemgunduz.btcenter.job.TickerRecorderJob;

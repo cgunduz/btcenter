@@ -1,11 +1,11 @@
 package com.cemgunduz.btcenter.services.impl;
 
 import com.cemgunduz.btcenter.entity.Order;
-import com.cemgunduz.btcenter.exchanges.BitStamp;
 import com.cemgunduz.btcenter.services.OrderBookInspectorService;
 import com.cemgunduz.btcenter.services.OrderService;
 import com.cemgunduz.btcenter.services.constants.BtcenterServiceSettings;
 import com.cemgunduz.btcenter.services.constants.PanicLevel;
+import com.cemgunduz.exchanges.BitStamp;
 import com.cemgunduz.utils.entity.RestResponse;
 
 import java.util.List;

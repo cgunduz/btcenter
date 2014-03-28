@@ -1,6 +1,6 @@
-package com.cemgunduz.btcenter.exchanges;
+package com.cemgunduz.exchanges;
 
-import com.cemgunduz.btcenter.exchanges.constants.BlockChainRestApi;
+import com.cemgunduz.exchanges.constants.BlockChainRestApi;
 import com.cemgunduz.utils.entity.RestResponse;
 import com.cemgunduz.utils.impl.WebUtilsImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package com.cemgunduz.btcenter.services.impl;
 
 import com.cemgunduz.btcenter.entity.Order;
 import com.cemgunduz.btcenter.entity.constants.OrderType;
-import com.cemgunduz.btcenter.exchanges.BitStamp;
 import com.cemgunduz.btcenter.services.OrderService;
+import com.cemgunduz.exchanges.BitStamp;
 import com.cemgunduz.utils.entity.RestResponse;
 import org.springframework.stereotype.Service;
 

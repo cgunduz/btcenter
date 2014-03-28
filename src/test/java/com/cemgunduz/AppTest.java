@@ -1,6 +1,6 @@
 package com.cemgunduz;
 
-import com.cemgunduz.btcenter.dao.OrderRepository;
+import com.cemgunduz.btcenter.dao.OrderDao;
 import com.cemgunduz.btcenter.dao.SequenceRepository;
 import com.cemgunduz.btcenter.dao.constants.Sequence;
 import com.cemgunduz.btcenter.entity.Order;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-config.xml" })
+@ContextConfiguration(locations = {"classpath:src/webapp/spring-config/spring-config.xml"})
 public class AppTest 
 {
     @Autowired
@@ -28,7 +28,7 @@ public class AppTest
 
     @Autowired
     @SuppressWarnings(value = "all")
-    OrderRepository orderRepository;
+    OrderDao orderDao;
 
     @Autowired
     MongoTemplate mongoTemplate;
@@ -48,13 +48,13 @@ public class AppTest
 
         mongoTemplate.dropCollection("Order");
 
-        orderRepository.save(order1);
-        orderRepository.save(order2);
+        orderDao.save(order1);
+        orderDao.save(order2);
 
         System.out.println(order1.getId());
         System.out.println(order2.getId());
 
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderDao.findAll();
 
         for(Order o : orderList)
             System.out.println(o.toString());

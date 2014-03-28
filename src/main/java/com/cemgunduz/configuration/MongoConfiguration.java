@@ -1,6 +1,7 @@
 package com.cemgunduz.configuration;
 
-import com.cemgunduz.btcenter.dao.OrderRepository;
+import com.cemgunduz.btcenter.dao.OrderDao;
+import com.cemgunduz.btcenter.dao.TickerDao;
 import com.mongodb.Mongo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,7 +17,7 @@ import java.net.UnknownHostException;
  */
 @Configuration
 @EnableMongoRepositories(basePackages = "com.cemgunduz.btcenter.*",
-        includeFilters = @ComponentScan.Filter(value = {OrderRepository.class},
+        includeFilters = @ComponentScan.Filter(value = {OrderDao.class, TickerDao.class},
                 type = FilterType.ASSIGNABLE_TYPE))
 public class MongoConfiguration {
 

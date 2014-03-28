@@ -10,7 +10,7 @@ import java.util.List;
  * Created by cgunduz on 3/13/14.
  */
 
-public interface OrderRepository extends MongoRepository<Order,Integer>{
+public interface OrderDao extends MongoRepository<Order,Long>{
 
     public List<Order> findByOrderType(String orderType);
     public List<Order> findByValue(Double value);

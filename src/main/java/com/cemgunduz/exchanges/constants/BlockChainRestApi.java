@@ -1,4 +1,4 @@
-package com.cemgunduz.btcenter.exchanges.constants;
+package com.cemgunduz.exchanges.constants;
 
 public enum BlockChainRestApi {
 

@@ -1,4 +1,4 @@
-package com.cemgunduz.btcenter.exchanges;
+package com.cemgunduz.exchanges;
 
 import com.cemgunduz.utils.entity.RestResponse;
 import org.springframework.stereotype.Component;

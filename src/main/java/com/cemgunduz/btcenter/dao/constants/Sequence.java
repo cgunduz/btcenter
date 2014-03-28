@@ -5,7 +5,7 @@ package com.cemgunduz.btcenter.dao.constants;
  */
 public enum Sequence {
 
-    ORDER("order_seq");
+    ORDER("order_seq"), TICKER("ticker_seq");
 
     private String redisKey;
 
