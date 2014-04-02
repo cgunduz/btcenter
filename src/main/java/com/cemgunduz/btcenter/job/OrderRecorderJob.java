@@ -59,7 +59,7 @@ public class OrderRecorderJob implements Job {
                 .newTrigger()
                 .withIdentity("OrderRecorderTrigger", "BTCENTER")
                 .withSchedule(
-                        CronScheduleBuilder.cronSchedule("* 0/1 * * * ?"))
+                        CronScheduleBuilder.cronSchedule("0/30 * * * * ?"))
                 .build();
 
         return trigger;

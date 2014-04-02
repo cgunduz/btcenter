@@ -7,9 +7,9 @@
 	</head>
 	<body>
 		<article>
-			<header>#parse('/WEB-INF/velocity/layout/header.vm')</header>
+			<header>#parse('/layout/header.vm')</header>
 			<section>$!content</section>
-			<footer>#parse('/WEB-INF/velocity/layout/footer.vm')</footer>
+			<footer>#parse('/layout/footer.vm')</footer>
 		</article>
 	</body>
 </html>

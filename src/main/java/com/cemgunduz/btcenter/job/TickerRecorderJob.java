@@ -36,6 +36,7 @@ public class TickerRecorderJob implements Job {
         ticker.setTimestamp(System.currentTimeMillis());
 
         tickerHistoryService.addNewTicker(ticker);
+        System.out.println("New Tick added");
     }
 
     public static Trigger getDefaultTrigger()
@@ -44,7 +45,7 @@ public class TickerRecorderJob implements Job {
                 .newTrigger()
                 .withIdentity("TickerRecorderTrigger", "BTCENTER")
                 .withSchedule(
-                        CronScheduleBuilder.cronSchedule("0/2 * * * * ?"))
+                        CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
                 .build();
 
         return trigger;

@@ -11,12 +11,32 @@
 						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+    <!-- Might re-visit in future =) -->
+    <!-- Not handled configuratively -->
+    <bean id="quartzScheduler" class="com.cemgunduz.btcenter.job.QuartzScheduler"/>
+    <bean id="btcenterTaskBatch" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="quartzScheduler"/>
+        <property name="targetMethod" value="start"/>
+    </bean>
 
-    <context:annotation-config />
+    <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="btcenterTaskBatch" />
+        <property name="startDelay" value="50" />
+    </bean>
 
-    <!-- TODO: Needs to be more specific -->
-    <context:component-scan base-package="com.cemgunduz.*" />
-    <import resource="spring-redis-config.xml"/>
-    <import resource="spring-quartz.xml"/>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+
+        <property name="jobDetails">
+            <list>
+                <ref bean="btcenterTaskBatch"/>
+            </list>
+        </property>
+
+        <property name="triggers">
+            <list>
+                <ref bean="simpleTrigger" />
+            </list>
+        </property>
+    </bean>
 
 </beans>

@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:src/webapp/spring-config/spring-config.xml"})
+@ContextConfiguration(locations = {"classpath:spring-config/spring-config.xml"})
 public class AppTest 
 {
     @Autowired

@@ -16,21 +16,21 @@
     <bean id="velocityConfig"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath">
-            <value>/WEB-INF/velocity/velocity.properties</value>
+            <value>/WEB-INF/velocity/</value>
         </property>
     </bean>
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="attributes" value="velocityConfig"/>
         <property name="cache" value="false" />
-        <property name="layoutUrl" value="/WEB-INF/velocity/layout/main.vm" />
-        <property name="prefix" value="/WEB-INF/velocity/templates/" />
+        <property name="layoutUrl" value="/layout/main.vm" />
+        <property name="prefix" value="/templates/" />
         <property name="suffix" value=".vm" />
         <property name="exposeSpringMacroHelpers" value="true" />
         <property name="contentType" value="text/html;charset=UTF-8" />
         <property name="viewClass"
                   value="org.springframework.web.servlet.view.velocity.VelocityLayoutView" />
-        <property name="attributes" value="velocityConfig"/>
     </bean>
 
     <!-- Internationalization -->
